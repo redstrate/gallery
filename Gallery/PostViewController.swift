@@ -68,18 +68,17 @@ class PostViewController: UIViewController {
     }
     
     @IBAction func playAction(_ sender: Any) {
-        let imagePath = documentsPath.appendingPathComponent(post!.value(forKey: "name") as! String).path
-        
-        // Create an AVPlayer, passing it the HTTP Live Streaming URL.
-        let player = AVPlayer(url: URL(fileURLWithPath: imagePath))
-
-        // Create a new AVPlayerViewController and pass it a reference to the player.
-        let controller = AVPlayerViewController()
-        controller.player = player
-
-        // Modally present the player and call the player's play() method when complete.
-        present(controller, animated: true) {
-            player.play()
+        if((post?.value(forKey: "type") as? String) == "public.mpeg-4") {
+            let imagePath = documentsPath.appendingPathComponent(post!.value(forKey: "name") as! String).path
+            
+            let player = AVPlayer(url: URL(fileURLWithPath: imagePath))
+            
+            let controller = AVPlayerViewController()
+            controller.player = player
+            
+            present(controller, animated: true) {
+                player.play()
+            }
         }
     }
 }
