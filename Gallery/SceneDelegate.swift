@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             toolbar.allowsUserCustomization = true
 
             windowScene.titlebar!.toolbar = toolbar
-            windowScene.titlebar!.titleVisibility = .hidden
+            windowScene.titlebar!.titleVisibility = .visible
             
             (window?.rootViewController as! UINavigationController).navigationBar.isHidden = true
         #endif

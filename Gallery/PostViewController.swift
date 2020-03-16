@@ -3,7 +3,7 @@ import CoreData
 import AVFoundation
 import AVKit
 
-class PostViewController: UIViewController {
+class PostViewController: UIViewController, UIPopoverPresentationControllerDelegate {
     @IBOutlet weak var imageView: UIImageView?
     @IBOutlet weak var shareButton: UIBarButtonItem?
 
@@ -13,7 +13,29 @@ class PostViewController: UIViewController {
     
     let documentsPath : URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].absoluteURL
     
-    let windowTitle = "Post"
+    func updateWindowTitle() {
+        var windowTitle = "Untagged Post"
+
+        var tagList = ""
+        
+        guard let postObject = post as? Post else {
+            return
+        }
+        
+        for tag in postObject.tags! {
+            if !tagList.isEmpty {
+                tagList += ", "
+            }
+            
+            tagList += (tag as! Tag).name!
+        }
+        
+        if !tagList.isEmpty {
+            windowTitle = tagList
+        }
+        
+        self.view.window?.windowScene!.title = windowTitle
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -40,7 +62,7 @@ class PostViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        self.view.window?.windowScene!.title = windowTitle
+        updateWindowTitle()
     }
     
     @objc func closePopup() {
@@ -64,7 +86,10 @@ class PostViewController: UIViewController {
                 return
             }
             
+            newViewController.onDismiss = updateWindowTitle
             newViewController.post = self.post as? Post
+            
+            segue.destination.popoverPresentationController?.delegate = self
         } else if segue.identifier == "showInfo" {
             guard let newViewController = segue.destination as? InfoViewController else {
                 return
@@ -89,6 +114,10 @@ class PostViewController: UIViewController {
             }
         }
     }
+    
+    func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {
+        updateWindowTitle()
+    }
 }
 
 extension PostViewController {
@@ -104,7 +133,6 @@ extension PostViewController {
 private let EditButtonToolbarIdentifier = NSToolbarItem.Identifier(rawValue: "OurButton")
 private let ShareButtonToolbarIdentifier = NSToolbarItem.Identifier(rawValue: "OurButton2")
 private let InfoButtonToolbarIdentifier = NSToolbarItem.Identifier(rawValue: "OurButton3")
-private let TitlebarToolbarIdentifier = NSToolbarItem.Identifier(rawValue: "Titlebar")
 
 extension PostViewController: NSToolbarDelegate {
     @objc func editTagsAction() {
@@ -124,7 +152,7 @@ extension PostViewController: NSToolbarDelegate {
     }
     
     func toolbarDefaultItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
-        return [NSToolbarItem.Identifier.flexibleSpace, TitlebarToolbarIdentifier, NSToolbarItem.Identifier.flexibleSpace, InfoButtonToolbarIdentifier, EditButtonToolbarIdentifier, ShareButtonToolbarIdentifier]
+        return [NSToolbarItem.Identifier.flexibleSpace, InfoButtonToolbarIdentifier, EditButtonToolbarIdentifier, ShareButtonToolbarIdentifier]
     }
     
     func toolbarAllowedItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
@@ -154,15 +182,6 @@ extension PostViewController: NSToolbarDelegate {
                               action: #selector(self.shareAction))
             let button = NSToolbarItem(itemIdentifier: itemIdentifier, barButtonItem: barButtonItem)
             return button
-        }
-        
-        if(itemIdentifier == TitlebarToolbarIdentifier) {
-            let barButtonItem = UIBarButtonItem(title: windowTitle, style: UIBarButtonItem.Style.plain, target: nil, action: nil)
-            
-            let title = NSToolbarItem(itemIdentifier: itemIdentifier, barButtonItem: barButtonItem)
-            title.label = "Title"
-            
-            return title
         }
         
         return nil

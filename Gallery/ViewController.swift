@@ -124,8 +124,7 @@ extension ViewController: NSToolbarDelegate {
     }
     
     func toolbarDefaultItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
-        return [OurButtonToolbarIdentifier2, NSToolbarItem.Identifier.flexibleSpace,
-                    TitlebarToolbarIdentifier, NSToolbarItem.Identifier.flexibleSpace, OurButtonToolbarIdentifier]
+        return [OurButtonToolbarIdentifier2, NSToolbarItem.Identifier.flexibleSpace, OurButtonToolbarIdentifier]
     }
     
     func toolbarAllowedItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
@@ -141,15 +140,6 @@ extension ViewController: NSToolbarDelegate {
             button.label = "Add";
             
             return button
-        }
-        
-        if(itemIdentifier == TitlebarToolbarIdentifier) {
-            let barButtonItem = UIBarButtonItem(title: windowTitle, style: UIBarButtonItem.Style.plain, target: nil, action: nil)
-                        
-            let title = NSToolbarItem(itemIdentifier: itemIdentifier, barButtonItem: barButtonItem)
-            title.label = "Title"
-            
-            return title
         }
 
         if (itemIdentifier == OurButtonToolbarIdentifier) {

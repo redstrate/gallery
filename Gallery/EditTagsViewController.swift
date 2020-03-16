@@ -3,6 +3,8 @@ import CoreData
 
 class EditTagsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var post: Post?
+    
+    var onDismiss: (() -> Void)? = nil
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tagField: UITextField!
@@ -50,6 +52,10 @@ class EditTagsViewController: UIViewController, UITableViewDelegate, UITableView
     
     @IBAction func doneAction(_ sender: Any) {
         dismiss(animated: true, completion: nil)
+        
+        if onDismiss != nil {
+            onDismiss!()
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
