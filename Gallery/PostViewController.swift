@@ -4,32 +4,34 @@ import AVFoundation
 import AVKit
 
 class PostViewController: UIViewController {
-    @IBOutlet weak var imageView: UIImageView!
-    
+    @IBOutlet weak var imageView: UIImageView?
+    @IBOutlet weak var shareButton: UIBarButtonItem?
+
     var post: NSManagedObject?
     var image: UIImage?
     var isPopup: Bool = false
-    @IBOutlet weak var shareButton: UIBarButtonItem!
     
     let documentsPath : URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].absoluteURL
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if(image == nil) {
-            let imagePath = documentsPath.appendingPathComponent(post!.value(forKey: "name") as! String).path
-            
-            if((post?.value(forKey: "type") as? String) == "public.mpeg-4") {
-                self.image = generateThumbnail(path: URL(fileURLWithPath: imagePath))
-            } else {
-                self.image = UIImage(contentsOfFile: imagePath)
+        if post != nil {
+            if image == nil {
+                let imagePath = documentsPath.appendingPathComponent(post!.value(forKey: "name") as! String).path
+                
+                if((post?.value(forKey: "type") as? String) == "public.mpeg-4") {
+                    self.image = generateThumbnail(path: URL(fileURLWithPath: imagePath))
+                } else {
+                    self.image = UIImage(contentsOfFile: imagePath)
+                }
             }
-        }
             
-        imageView.image = self.image
-        
-        if(isPopup) {
-            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(closePopup))
+            imageView?.image = self.image
+            
+            if(isPopup) {
+                navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(closePopup))
+            }
         }
     }
     
@@ -50,11 +52,15 @@ class PostViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showTags" {
-            let newViewController = segue.destination as! EditTagsViewController
+            guard let newViewController = segue.destination as? EditTagsViewController else {
+                return
+            }
             
             newViewController.post = self.post as? Post
         } else if segue.identifier == "showInfo" {
-            let newViewController = segue.destination as! InfoViewController
+            guard let newViewController = segue.destination as? InfoViewController else {
+                return
+            }
             
             newViewController.post = self.post as? Post
             newViewController.image = self.image
@@ -87,6 +93,7 @@ extension PostViewController {
 
 
 #if targetEnvironment(macCatalyst)
+
 private let EditButtonToolbarIdentifier = NSToolbarItem.Identifier(rawValue: "OurButton")
 private let ShareButtonToolbarIdentifier = NSToolbarItem.Identifier(rawValue: "OurButton2")
 private let InfoButtonToolbarIdentifier = NSToolbarItem.Identifier(rawValue: "OurButton3")
@@ -144,4 +151,5 @@ extension PostViewController: NSToolbarDelegate {
         return nil
     }
 }
+
 #endif

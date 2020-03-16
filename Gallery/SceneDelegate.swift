@@ -12,32 +12,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
         
         #if targetEnvironment(macCatalyst)
-        guard let windowScene = (scene as? UIWindowScene) else { return }
-        let toolbar = NSToolbar(identifier: "MyToolbar")
-        toolbar.delegate = (window?.rootViewController as! UINavigationController).topViewController as? NSToolbarDelegate
-        windowScene.titlebar!.toolbar = toolbar
-        windowScene.titlebar!.titleVisibility = .hidden
-        toolbar.allowsUserCustomization = true
+            guard let windowScene = (scene as? UIWindowScene) else {
+                return
+            }
         
-        (window?.rootViewController as! UINavigationController).navigationBar.isHidden = true
-        
+            let toolbar = NSToolbar(identifier: "Toolbar")
+            toolbar.delegate = (window?.rootViewController as! UINavigationController).topViewController as? NSToolbarDelegate
+            toolbar.allowsUserCustomization = true
+
+            windowScene.titlebar!.toolbar = toolbar
+            windowScene.titlebar!.titleVisibility = .hidden
+            
+            (window?.rootViewController as! UINavigationController).navigationBar.isHidden = true
         #endif
-    }
-    
-    func sceneDidDisconnect(_ scene: UIScene) {
-        
-    }
-    
-    func sceneDidBecomeActive(_ scene: UIScene) {
-        
-    }
-    
-    func sceneWillResignActive(_ scene: UIScene) {
-        
-    }
-    
-    func sceneWillEnterForeground(_ scene: UIScene) {
-        
     }
     
     func sceneDidEnterBackground(_ scene: UIScene) {
@@ -48,14 +35,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if activity.activityType == "post" {
             if let photoID = activity.userInfo?["name"] as? String {
                 if let photoDetailViewController = PostViewController.loadFromStoryboard() {
-                    
                     guard let appDelegate =
                         UIApplication.shared.delegate as? AppDelegate else {
                             return false
                     }
                     
-                    let managedContext =
-                        appDelegate.persistentContainer.viewContext
+                    let managedContext = appDelegate.persistentContainer.viewContext
                     
                     let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Post")
                     
@@ -65,7 +50,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                     do {
                         let result = try managedContext.fetch(request)
                         
-                        photoDetailViewController.post = result[0] as? NSManagedObject
+                        guard let object = result[0] as? NSManagedObject else {
+                            return false
+                        }
+                        
+                        photoDetailViewController.post = object
                         photoDetailViewController.isPopup = true
                         
                         if let navigationController = window?.rootViewController as? UINavigationController {

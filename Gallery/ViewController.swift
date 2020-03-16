@@ -83,19 +83,23 @@ class ViewController: UIViewController, UIDocumentPickerDelegate {
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         if identifier == "showPost" {
             #if targetEnvironment(macCatalyst)
-            let index = self.collectionView.indexPathsForSelectedItems?.first
-            
-            let post = self.collectionView.posts[index!.row]
-            
-            let activity = NSUserActivity(activityType: "post")
-            activity.userInfo = ["name": post.value(forKey: "name") as! String]
-            activity.isEligibleForHandoff = true
-            
-            UIApplication.shared.requestSceneSessionActivation(nil, userActivity: activity, options: nil, errorHandler: nil)
-            
-            return false
+                guard let cell = sender as? PostViewCell else {
+                    return false
+                }
+         
+                guard let name = cell.name else {
+                    return false
+                }
+                
+                let activity = NSUserActivity(activityType: "post")
+                activity.userInfo = ["name": name]
+                activity.isEligibleForHandoff = true
+                
+                UIApplication.shared.requestSceneSessionActivation(nil, userActivity: activity, options: nil, errorHandler: nil)
+                
+                return false
             #else
-            return true
+                return true
             #endif
         }
         
@@ -124,7 +128,7 @@ extension ViewController: NSToolbarDelegate {
     func toolbarAllowedItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
         return toolbarDefaultItemIdentifiers(toolbar)
     }
-    
+        
     func toolbar(_ toolbar: NSToolbar, itemForItemIdentifier itemIdentifier: NSToolbarItem.Identifier, willBeInsertedIntoToolbar flag: Bool) -> NSToolbarItem? {
         if (itemIdentifier == OurButtonToolbarIdentifier2) {
             let barButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.add,

@@ -69,6 +69,8 @@ class PostCollectionView: UICollectionView, UICollectionViewDataSource, UICollec
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "postCell", for: indexPath as IndexPath) as! PostViewCell
         
+        cell.name = post.value(forKey: "name") as? String
+        
         let imagePath = documentsPath.appendingPathComponent(post.value(forKey: "name") as! String).path
         
         if(FileManager.default.fileExists(atPath: imagePath)) {
@@ -279,8 +281,10 @@ class PostCollectionView: UICollectionView, UICollectionViewDataSource, UICollec
         let model = posts[indexPath.item]
         let itemProvider = NSItemProvider(object: (cellForItem(at: indexPath) as! PostViewCell).imageView.image!)
         itemProvider.suggestedName = model.value(forKey: "name") as? String
-         let dragItem = UIDragItem(itemProvider: itemProvider)
-         dragItem.localObject = model //We can set the localObject property for convenience
-         return [dragItem]
+        
+        let dragItem = UIDragItem(itemProvider: itemProvider)
+        dragItem.localObject = model //We can set the localObject property for convenience
+        
+        return [dragItem]
     }
 }
