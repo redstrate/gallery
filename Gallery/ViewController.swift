@@ -6,6 +6,8 @@ class ViewController: UIViewController, UIDocumentPickerDelegate {
     
     let documentsPath : URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].absoluteURL
     
+    let windowTitle = "Home"
+    
     func importFile(path: URL) {
         guard let appDelegate =
             UIApplication.shared.delegate as? AppDelegate else {
@@ -53,7 +55,7 @@ class ViewController: UIViewController, UIDocumentPickerDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        self.view.window?.windowScene!.title = "Home"
+        self.view.window?.windowScene!.title = windowTitle
     }
     
     @IBAction func importAction(_ sender: Any) {
@@ -110,6 +112,7 @@ class ViewController: UIViewController, UIDocumentPickerDelegate {
 #if targetEnvironment(macCatalyst)
 private let OurButtonToolbarIdentifier = NSToolbarItem.Identifier(rawValue: "OurButton")
 private let OurButtonToolbarIdentifier2 = NSToolbarItem.Identifier(rawValue: "OurButton2")
+private let TitlebarToolbarIdentifier = NSToolbarItem.Identifier(rawValue: "Titlebar")
 
 extension ViewController: NSToolbarDelegate {
     @objc func searchAction() {
@@ -122,7 +125,7 @@ extension ViewController: NSToolbarDelegate {
     
     func toolbarDefaultItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
         return [OurButtonToolbarIdentifier2, NSToolbarItem.Identifier.flexibleSpace,
-                    OurButtonToolbarIdentifier]
+                    TitlebarToolbarIdentifier, NSToolbarItem.Identifier.flexibleSpace, OurButtonToolbarIdentifier]
     }
     
     func toolbarAllowedItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
@@ -138,6 +141,15 @@ extension ViewController: NSToolbarDelegate {
             button.label = "Add";
             
             return button
+        }
+        
+        if(itemIdentifier == TitlebarToolbarIdentifier) {
+            let barButtonItem = UIBarButtonItem(title: windowTitle, style: UIBarButtonItem.Style.plain, target: nil, action: nil)
+                        
+            let title = NSToolbarItem(itemIdentifier: itemIdentifier, barButtonItem: barButtonItem)
+            title.label = "Title"
+            
+            return title
         }
 
         if (itemIdentifier == OurButtonToolbarIdentifier) {
