@@ -279,12 +279,15 @@ class PostCollectionView: UICollectionView, UICollectionViewDataSource, UICollec
     
     func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
         let model = posts[indexPath.item]
+        
+        let activity = NSUserActivity(activityType: "post")
+        activity.userInfo = ["name":  model.value(forKey: "name")!]
+        activity.isEligibleForHandoff = true
+        
         let itemProvider = NSItemProvider(object: (cellForItem(at: indexPath) as! PostViewCell).imageView.image!)
         itemProvider.suggestedName = model.value(forKey: "name") as? String
+        itemProvider.registerObject(activity, visibility: .all)
         
-        let dragItem = UIDragItem(itemProvider: itemProvider)
-        dragItem.localObject = model //We can set the localObject property for convenience
-        
-        return [dragItem]
+        return [UIDragItem(itemProvider: itemProvider)]
     }
 }
