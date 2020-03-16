@@ -86,7 +86,6 @@ class PostViewController: UIViewController, UIPopoverPresentationControllerDeleg
                 return
             }
             
-            newViewController.onDismiss = updateWindowTitle
             newViewController.post = self.post as? Post
             
             segue.destination.popoverPresentationController?.delegate = self

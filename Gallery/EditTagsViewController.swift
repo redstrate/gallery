@@ -1,11 +1,10 @@
 import UIKit
 import CoreData
 
-class EditTagsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class EditTagsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     var post: Post?
     
-    var onDismiss: (() -> Void)? = nil
-
+    @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tagField: UITextField!
     
@@ -29,7 +28,7 @@ class EditTagsViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
-    @IBAction func editingFinished(_ sender: Any) {
+    func textFieldDidEndEditing(_ textField: UITextField) {
         guard let appDelegate =
             UIApplication.shared.delegate as? AppDelegate else {
                 return
@@ -46,18 +45,23 @@ class EditTagsViewController: UIViewController, UITableViewDelegate, UITableView
         tagField.text?.removeAll()
     }
     
-    @IBAction func editAction(_ sender: Any) {
-        tableView.setEditing(true, animated: true)
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textFieldDidEndEditing(textField)
+        return false
     }
     
-    @IBAction func doneAction(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+    @IBAction func editAction(_ sender: Any) {
+        isEditing = !isEditing
         
-        if onDismiss != nil {
-            onDismiss!()
+        tableView.setEditing(isEditing, animated: true)
+        
+        if isEditing {
+            editButton.setTitle("Done", for: UIControl.State.normal)
+        } else {
+            editButton.setTitle("Edit", for: UIControl.State.normal)
         }
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showTag" {
             let newViewController = segue.destination as! TagViewController
