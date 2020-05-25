@@ -167,7 +167,6 @@ class PostCollectionView: UICollectionView, UICollectionViewDataSource, UICollec
     
     func makeContextMenu(post: NSManagedObject) -> UIMenu {
         let newWindow = UIAction(title: "Open in New Window", image: UIImage(systemName: "plus.square.on.square")) { action in
-            
             let activity = NSUserActivity(activityType: "post")
             activity.userInfo = ["name": post.value(forKey: "name") as! String]
             activity.isEligibleForHandoff = true
@@ -191,10 +190,18 @@ class PostCollectionView: UICollectionView, UICollectionViewDataSource, UICollec
         }
         
         let editTags = UIAction(title: "Tags", image: UIImage(systemName: "tag")) { action in
-            let viewController = EditTagsViewController.loadFromStoryboard()
-            viewController!.post = post as? Post
-            
-            self.viewController?.present(viewController!, animated: true)
+            #if targetEnvironment(macCatalyst)
+                let activity = NSUserActivity(activityType: "tags")
+                activity.userInfo = ["name": post.value(forKey: "name") as! String]
+                activity.isEligibleForHandoff = true
+                
+                UIApplication.shared.requestSceneSessionActivation(nil, userActivity: activity, options: nil, errorHandler: nil)
+            #else
+                let viewController = EditTagsViewController.loadFromStoryboard()
+                viewController!.post = post as? Post
+                
+                self.viewController?.present(viewController!, animated: true)
+            #endif
         }
         
         let info = UIAction(title: "Info", image: UIImage(systemName: "info.circle")) { action in
