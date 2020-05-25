@@ -55,10 +55,15 @@ class PostDetailViewController: UIViewController, UIPopoverPresentationControlle
             imageView?.image = self.image
             
             if(isPopup) {
+                #if targetEnvironment(macCatalyst)
+                navigationItem.leftBarButtonItem = UIBarButtonItem(title: nil, style: .done, target: nil, action: nil)
+                #else
                 navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(closePopup))
+
+                #endif
             }
         }
-        
+            
         #if !targetEnvironment(macCatalyst)
         updateWindowTitle()
         #endif
