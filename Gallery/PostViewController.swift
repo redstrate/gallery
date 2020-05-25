@@ -35,6 +35,7 @@ class PostViewController: UIViewController, UIPopoverPresentationControllerDeleg
         }
         
         self.view.window?.windowScene!.title = windowTitle
+        navigationItem.title = windowTitle
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -57,12 +58,12 @@ class PostViewController: UIViewController, UIPopoverPresentationControllerDeleg
                 navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(closePopup))
             }
         }
+        
+        updateWindowTitle()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        updateWindowTitle()
     }
     
     @objc func closePopup() {
