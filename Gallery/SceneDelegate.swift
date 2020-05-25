@@ -12,18 +12,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
         
         #if targetEnvironment(macCatalyst)
-            guard let windowScene = (scene as? UIWindowScene) else {
-                return
-            }
-        
-            let toolbar = NSToolbar(identifier: "Toolbar")
-            toolbar.delegate = (window?.rootViewController as! UINavigationController).topViewController as? NSToolbarDelegate
-            toolbar.allowsUserCustomization = true
+        guard let windowScene = (scene as? UIWindowScene) else { return }
 
-            windowScene.titlebar!.toolbar = toolbar
-            windowScene.titlebar!.titleVisibility = .visible
-            
-            (window?.rootViewController as! UINavigationController).navigationBar.isHidden = true
+        if let titlebar = windowScene.titlebar {
+            titlebar.titleVisibility = .hidden
+            titlebar.toolbar = nil
+        }
         #endif
     }
     
