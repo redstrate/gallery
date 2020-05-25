@@ -70,6 +70,32 @@ class EditTagsViewController: UIViewController, UITableViewDelegate, UITableView
             newViewController.tag = (post?.tags![index!.row] as! Tag).name
         }
     }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if identifier == "showTag" {
+            #if targetEnvironment(macCatalyst)
+            guard let cell = sender as? TagViewCell else {
+                return false
+            }
+            
+            guard let name = cell.label.text else {
+                return false
+            }
+            
+            let activity = NSUserActivity(activityType: "postsOf")
+            activity.userInfo = ["tags": name]
+            activity.isEligibleForHandoff = true
+            
+            UIApplication.shared.requestSceneSessionActivation(nil, userActivity: activity, options: nil, errorHandler: nil)
+            
+            return false
+            #else
+            return true
+            #endif
+        }
+        
+        return super.shouldPerformSegue(withIdentifier: identifier, sender: sender)
+    }
 }
 
 extension EditTagsViewController {

@@ -8,7 +8,14 @@ class HomeViewController: UIViewController, UIDocumentPickerDelegate {
     
     let documentsPath : URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].absoluteURL
     
-    let windowTitle = "Home"
+    var tags: String?
+    
+    func updateWindowTitle() {
+        let windowTitle = tags ?? "All Posts"
+        
+        self.view.window?.windowScene!.title = windowTitle
+        navigationItem.title = windowTitle
+    }
     
     func importFile(path: URL) {
         guard let appDelegate =
@@ -53,14 +60,10 @@ class HomeViewController: UIViewController, UIDocumentPickerDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+                
+        collectionManager = PostsManager(collectionView: collectionView, tag: tags)
         
-        collectionManager = PostsManager(collectionView: collectionView, tag: nil)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        self.view.window?.windowScene!.title = windowTitle
+        updateWindowTitle()
     }
     
     @IBAction func importAction(_ sender: Any) {
@@ -111,5 +114,12 @@ class HomeViewController: UIViewController, UIDocumentPickerDelegate {
         }
         
         return super.shouldPerformSegue(withIdentifier: identifier, sender: sender)
+    }
+}
+
+extension HomeViewController {
+    static func loadFromStoryboard() -> HomeViewController? {
+        let storyboard = UIStoryboard(name: "Main", bundle: .main)
+        return storyboard.instantiateViewController(withIdentifier: "HomeViewController") as? HomeViewController
     }
 }

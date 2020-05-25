@@ -51,6 +51,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         return nil
     }
     
+    func getTagsFromActivity(activity: NSUserActivity ) -> String? {
+        if let photoID = activity.userInfo?["tags"] as? String {
+           return photoID
+        }
+        
+        return nil
+    }
+    
     func configure(window: UIWindow?, with activity: NSUserActivity) -> Bool {
         if activity.activityType == "post" {
             if let post = getPostFromActivity(activity: activity) {
@@ -72,6 +80,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                     
                     if let navigationController = window?.rootViewController as? UINavigationController {
                         navigationController.pushViewController(editTagsController, animated: false)
+                        
+                        return true
+                    }
+                }
+            }
+        } else if activity.activityType == "postsOf" {
+            if let tags = getTagsFromActivity(activity: activity) {
+                if let homeController = HomeViewController.loadFromStoryboard() {
+                    homeController.tags = tags
+                    
+                    if let navigationController = window?.rootViewController as? UINavigationController {
+                        navigationController.pushViewController(homeController, animated: false)
                         
                         return true
                     }

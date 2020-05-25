@@ -64,17 +64,7 @@ class PostDetailViewController: UIViewController, UIPopoverPresentationControlle
             }
         }
             
-        #if !targetEnvironment(macCatalyst)
         updateWindowTitle()
-        #endif
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        #if targetEnvironment(macCatalyst)
-        updateWindowTitle()
-        #endif
     }
     
     @objc func closePopup() {

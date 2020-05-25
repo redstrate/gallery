@@ -110,7 +110,7 @@ class PostsManager: NSObject, UICollectionViewDataSource, UICollectionViewDelega
         
         managedContext = appDelegate.persistentContainer.viewContext
         
-        setTag(tag: nil)
+        setTag(tag: tag)
     }
     
     func reload(request: NSFetchRequest<NSManagedObject>) {
