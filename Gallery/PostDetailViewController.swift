@@ -67,6 +67,12 @@ class PostDetailViewController: UIViewController, UIPopoverPresentationControlle
         updateWindowTitle()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        updateWindowTitle()
+    }
+    
     @objc func closePopup() {
         UIApplication.shared.requestSceneSessionDestruction((self.view.window?.windowScene!.session)!, options: nil, errorHandler: nil)
     }

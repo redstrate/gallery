@@ -11,7 +11,7 @@ class SearchViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        postManager = PostsManager(collectionView: collectionView, tag: nil)
+        postManager = PostsManager(viewController: self, collectionView: collectionView, tag: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

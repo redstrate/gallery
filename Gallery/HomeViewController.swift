@@ -61,7 +61,13 @@ class HomeViewController: UIViewController, UIDocumentPickerDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
                 
-        collectionManager = PostsManager(collectionView: collectionView, tag: tags)
+        collectionManager = PostsManager(viewController: self, collectionView: collectionView, tag: tags)
+        
+        updateWindowTitle()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
         updateWindowTitle()
     }

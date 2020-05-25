@@ -47,13 +47,12 @@ func generateThumbnail(path: URL) -> UIImage? {
 }
 
 class PostsManager: NSObject, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDropDelegate, UICollectionViewDragDelegate {
+    var viewController: UIViewController?
     var collectionView : UICollectionView?
     var managedContext: NSManagedObjectContext?
     
     var posts: [NSManagedObject] = []
     
-    weak var viewController: UIViewController?
-
     private let itemsPerRow: CGFloat = 4
     
     private let sectionInsets = UIEdgeInsets(top: 10.0,
@@ -92,9 +91,10 @@ class PostsManager: NSObject, UICollectionViewDataSource, UICollectionViewDelega
         return cell
     }
     
-    init(collectionView: UICollectionView, tag: String?) {
+    init(viewController: UIViewController, collectionView: UICollectionView, tag: String?) {
         super.init()
         
+        self.viewController = viewController
         self.collectionView = collectionView
         
         collectionView.dragInteractionEnabled = true

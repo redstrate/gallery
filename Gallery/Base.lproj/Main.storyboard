@@ -65,10 +65,10 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="nHo-hC-uT9" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="25" id="715-Gf-Neb"/>
-                            <constraint firstItem="nHo-hC-uT9" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="PKo-Re-WQy"/>
-                            <constraint firstItem="nHo-hC-uT9" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="UdF-XX-6F1"/>
-                            <constraint firstItem="nHo-hC-uT9" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" constant="20" id="ZpI-FT-bld"/>
+                            <constraint firstItem="nHo-hC-uT9" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="4rZ-Za-ukx"/>
+                            <constraint firstItem="nHo-hC-uT9" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="9Yp-CZ-4Ox"/>
+                            <constraint firstItem="nHo-hC-uT9" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Cl4-QI-W1y"/>
+                            <constraint firstItem="nHo-hC-uT9" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="p1V-UB-9bB"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -254,7 +254,7 @@
         <!--Post Info View Controller-->
         <scene sceneID="w3u-pt-BtZ">
             <objects>
-                <viewController storyboardIdentifier="InfoViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="MaR-nc-wxI" customClass="PostInfoViewController" customModule="Gallery" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PostInfoViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="MaR-nc-wxI" customClass="PostInfoViewController" customModule="Gallery" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="VFL-0t-HSi">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="493"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -11,7 +11,7 @@ class TagPreviewViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        collectionManager = PostsManager(collectionView: collectionView, tag: nil)
+        collectionManager = PostsManager(viewController: self, collectionView: collectionView, tag: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
