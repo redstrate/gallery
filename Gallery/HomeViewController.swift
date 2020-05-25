@@ -48,11 +48,6 @@ class HomeViewController: UIViewController, UIDocumentPickerDelegate {
             post.setValue(path.lastPathComponent, forKeyPath: "name")
             
             try managedContext.save()
-            collectionManager?.posts.append(post)
-            
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
-            }
         } catch let error as NSError {
             print("Could not save. \(error), \(error.userInfo)")
         }
