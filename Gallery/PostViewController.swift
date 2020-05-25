@@ -22,8 +22,8 @@ class PostViewController: UIViewController, UIPopoverPresentationControllerDeleg
             return
         }
         
-        for tag in postObject.tags! {
-            if !tagList.isEmpty {
+        for (i, tag) in postObject.tags!.enumerated() {
+            if !tagList.isEmpty && i != postObject.tags!.count - 1 {
                 tagList += ", "
             }
             
@@ -59,11 +59,17 @@ class PostViewController: UIViewController, UIPopoverPresentationControllerDeleg
             }
         }
         
+        #if !targetEnvironment(macCatalyst)
         updateWindowTitle()
+        #endif
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        #if targetEnvironment(macCatalyst)
+        updateWindowTitle()
+        #endif
     }
     
     @objc func closePopup() {
