@@ -20,7 +20,7 @@
 		0361A5122346A38100639E67 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0361A5112346A38100639E67 /* PostViewController.swift */; };
 		0361A514234828D000639E67 /* EditTagsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0361A513234828D000639E67 /* EditTagsViewController.swift */; };
 		0361A51623482A7D00639E67 /* TagViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0361A51523482A7D00639E67 /* TagViewCell.swift */; };
-		03F92BA22349635C0000DC1C /* PostCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F92BA12349635C0000DC1C /* PostCollectionView.swift */; };
+		03F92BA22349635C0000DC1C /* PostsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F92BA12349635C0000DC1C /* PostsManager.swift */; };
 		03F92BA4234967E00000DC1C /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F92BA3234967E00000DC1C /* SearchViewController.swift */; };
 		03F92BA6234969800000DC1C /* TagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F92BA5234969800000DC1C /* TagViewController.swift */; };
 /* End PBXBuildFile section */
@@ -42,7 +42,7 @@
 		0361A5112346A38100639E67 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		0361A513234828D000639E67 /* EditTagsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTagsViewController.swift; sourceTree = "<group>"; };
 		0361A51523482A7D00639E67 /* TagViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagViewCell.swift; sourceTree = "<group>"; };
-		03F92BA12349635C0000DC1C /* PostCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCollectionView.swift; sourceTree = "<group>"; };
+		03F92BA12349635C0000DC1C /* PostsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsManager.swift; sourceTree = "<group>"; };
 		03F92BA3234967E00000DC1C /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		03F92BA5234969800000DC1C /* TagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -90,7 +90,7 @@
 				0361A5112346A38100639E67 /* PostViewController.swift */,
 				0361A513234828D000639E67 /* EditTagsViewController.swift */,
 				0361A51523482A7D00639E67 /* TagViewCell.swift */,
-				03F92BA12349635C0000DC1C /* PostCollectionView.swift */,
+				03F92BA12349635C0000DC1C /* PostsManager.swift */,
 				03F92BA3234967E00000DC1C /* SearchViewController.swift */,
 				03F92BA5234969800000DC1C /* TagViewController.swift */,
 				03093522235660E100E44910 /* ReverseImageViewController.swift */,
@@ -171,7 +171,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				03F92BA4234967E00000DC1C /* SearchViewController.swift in Sources */,
-				03F92BA22349635C0000DC1C /* PostCollectionView.swift in Sources */,
+				03F92BA22349635C0000DC1C /* PostsManager.swift in Sources */,
 				0361A5122346A38100639E67 /* PostViewController.swift in Sources */,
 				0361A502234690C000639E67 /* Gallery.xcdatamodeld in Sources */,
 				0361A4FC234690C000639E67 /* ViewController.swift in Sources */,

@@ -46,7 +46,10 @@ func generateThumbnail(path: URL) -> UIImage? {
     }
 }
 
-class PostCollectionView: UICollectionView, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDropDelegate, UICollectionViewDragDelegate {
+class PostsManager: NSObject, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UICollectionViewDropDelegate, UICollectionViewDragDelegate {
+    var collectionView : UICollectionView?
+    var managedContext: NSManagedObjectContext?
+    
     var posts: [NSManagedObject] = []
     
     weak var viewController: UIViewController?
@@ -89,58 +92,64 @@ class PostCollectionView: UICollectionView, UICollectionViewDataSource, UICollec
         return cell
     }
     
-    func actualInit(tag: String?) {
+    init(collectionView: UICollectionView, tag: String?) {
+        super.init()
+        
+        self.collectionView = collectionView
+        
+        collectionView.dragInteractionEnabled = true
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.dropDelegate = self
+        collectionView.dragDelegate = self
+        
         guard let appDelegate =
             UIApplication.shared.delegate as? AppDelegate else {
                 return
         }
         
-        let managedContext = appDelegate.persistentContainer.viewContext
+        managedContext = appDelegate.persistentContainer.viewContext
         
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Post")
-        
-        if(tag != nil) {
-            let predicate = NSPredicate(format: "ANY tags.name in %@", [tag])
-
-            fetchRequest.predicate = predicate
-        }
-        
+        setTag(tag: nil)
+    }
+    
+    func reload(request: NSFetchRequest<NSManagedObject>) {
         do {
-            posts = try managedContext.fetch(fetchRequest)
+            posts = try managedContext!.fetch(request)
             
             DispatchQueue.main.async {
-                self.reloadData()
+                self.collectionView!.reloadData()
             }
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
     }
     
-    override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
-        super.init(frame: frame, collectionViewLayout: layout)
+    func setTag(tag: String?) {
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(managedObjectContextObjectsDidChange), name: NSNotification.Name.NSManagedObjectContextObjectsDidChange, object: managedContext)
         
-        self.dragInteractionEnabled = true
-        self.dataSource = self
-        self.delegate = self
-        self.dropDelegate = self
-        self.dragDelegate = self
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Post")
+        
+        if(tag != nil) {
+            let predicate = NSPredicate(format: "ANY tags.name in %@", [tag])
+            
+            fetchRequest.predicate = predicate
+        }
+        
+        reload(request: fetchRequest)
     }
     
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        
-        self.dragInteractionEnabled = true
-        self.dataSource = self
-        self.delegate = self
-        self.dropDelegate = self
-        self.dragDelegate = self
+    @objc func managedObjectContextObjectsDidChange(notification: NSNotification) {
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Post")
+        reload(request: fetchRequest)
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
-        let availableWidth = frame.width - paddingSpace
+        let availableWidth = collectionView.frame.width - paddingSpace
         let widthPerItem = availableWidth / itemsPerRow
         
         return CGSize(width: widthPerItem, height: widthPerItem)
@@ -177,10 +186,10 @@ class PostCollectionView: UICollectionView, UICollectionViewDataSource, UICollec
         let share = UIAction(title: "Share", image: UIImage(systemName: "square.and.arrow.up")) { action in
             let index = self.posts.firstIndex(of: post)
             
-            let cell = self.cellForItem(at: IndexPath(row: index!, section: 0)) as! PostViewCell
+            let cell = self.collectionView?.cellForItem(at: IndexPath(row: index!, section: 0)) as! PostViewCell
             
             let imageSearch = ReverseImageSearchService()
-            imageSearch.viewController = self.window?.rootViewController
+            imageSearch.viewController = self.collectionView?.window?.rootViewController
             imageSearch.post = self.posts[index!] as? Post
                         
             let activityViewController = UIActivityViewController(activityItems: [cell.imageView.image!], applicationActivities: [imageSearch])
@@ -207,7 +216,7 @@ class PostCollectionView: UICollectionView, UICollectionViewDataSource, UICollec
         let info = UIAction(title: "Info", image: UIImage(systemName: "info.circle")) { action in
             let index = self.posts.firstIndex(of: post)
 
-            let cell = self.cellForItem(at: IndexPath(row: index!, section: 0)) as! PostViewCell
+            let cell = self.collectionView?.cellForItem(at: IndexPath(row: index!, section: 0)) as! PostViewCell
             
             let viewController = InfoViewController.loadFromStoryboard()
             viewController!.post = post as? Post
@@ -230,7 +239,7 @@ class PostCollectionView: UICollectionView, UICollectionViewDataSource, UICollec
             }
             
             DispatchQueue.main.async {
-                self.reloadData()
+                self.collectionView?.reloadData()
             }
         }
         
@@ -276,7 +285,7 @@ class PostCollectionView: UICollectionView, UICollectionViewDataSource, UICollec
                             try? managedContext.save()
                             self.posts.append(post)
                         
-                            self.reloadData()
+                            collectionView.reloadData()
                         }
                     }
                 }
@@ -291,7 +300,7 @@ class PostCollectionView: UICollectionView, UICollectionViewDataSource, UICollec
         activity.userInfo = ["name":  model.value(forKey: "name")!]
         activity.isEligibleForHandoff = true
         
-        let itemProvider = NSItemProvider(object: (cellForItem(at: indexPath) as! PostViewCell).imageView.image!)
+        let itemProvider = NSItemProvider(object: (collectionView.cellForItem(at: indexPath) as! PostViewCell).imageView.image!)
         itemProvider.suggestedName = model.value(forKey: "name") as? String
         itemProvider.registerObject(activity, visibility: .all)
         

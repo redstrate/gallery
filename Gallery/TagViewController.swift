@@ -4,13 +4,20 @@ import CoreData
 class TagViewController: UIViewController {
     var tag: String?
     
-    @IBOutlet weak var collectionView: PostCollectionView!
+    var collectionManager: PostsManager?
+    
+    @IBOutlet weak var collectionView: UICollectionView!
         
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        collectionView.actualInit(tag: self.tag)
-        collectionView.viewController = self
+        collectionManager = PostsManager(collectionView: collectionView, tag: nil)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        collectionManager?.setTag(tag: self.tag)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -18,7 +25,7 @@ class TagViewController: UIViewController {
             let newViewController = segue.destination as! PostViewController
             let index = self.collectionView.indexPathsForSelectedItems?.first
             
-            newViewController.post = self.collectionView.posts[index!.row]
+            newViewController.post = self.collectionManager?.posts[index!.row]
             newViewController.image = (self.collectionView.cellForItem(at: index!) as! PostViewCell).imageView.image;
         }
     }

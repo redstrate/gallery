@@ -2,14 +2,16 @@ import UIKit
 import CoreData
 
 class SearchViewController: UIViewController {
-    @IBOutlet weak var collectionView: PostCollectionView!
+    @IBOutlet weak var collectionView: UICollectionView!
+    
+    var postManager: PostsManager?
     
     @IBOutlet weak var searchField: UITextField!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        collectionView.viewController = self
+        postManager = PostsManager(collectionView: collectionView, tag: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -17,13 +19,13 @@ class SearchViewController: UIViewController {
             let newViewController = segue.destination as! PostViewController
             let index = self.collectionView.indexPathsForSelectedItems?.first
             
-            newViewController.post = self.collectionView.posts[index!.row]
+            newViewController.post = self.postManager?.posts[index!.row]
             newViewController.image = (self.collectionView.cellForItem(at: index!) as! PostViewCell).imageView.image;
         }
     }
     
     @IBAction func searchAction(_ sender: Any) {
-        collectionView.actualInit(tag: searchField.text)
+        postManager?.setTag(tag: searchField.text)
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
@@ -31,10 +33,10 @@ class SearchViewController: UIViewController {
             #if targetEnvironment(macCatalyst)
             let index = self.collectionView.indexPathsForSelectedItems?.first
             
-            let post = self.collectionView.posts[index!.row]
+            let post = postManager?.posts[index!.row]
             
             let activity = NSUserActivity(activityType: "post")
-            activity.userInfo = ["name": post.value(forKey: "name") as! String]
+            activity.userInfo = ["name": post?.value(forKey: "name") as! String]
             activity.isEligibleForHandoff = true
             
             UIApplication.shared.requestSceneSessionActivation(nil, userActivity: activity, options: nil, errorHandler: nil)

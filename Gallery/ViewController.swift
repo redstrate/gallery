@@ -2,7 +2,9 @@ import UIKit
 import CoreData
 
 class ViewController: UIViewController, UIDocumentPickerDelegate {
-    @IBOutlet weak var collectionView: PostCollectionView!
+    @IBOutlet weak var collectionView: UICollectionView!
+    
+    var collectionManager: PostsManager?
     
     let documentsPath : URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0].absoluteURL
     
@@ -24,6 +26,10 @@ class ViewController: UIViewController, UIDocumentPickerDelegate {
         let newPath = documentsPath.appendingPathComponent(path.lastPathComponent)
         
         do {
+            if FileManager.default.fileExists(atPath: newPath.path) {
+                try FileManager.default.removeItem(at: newPath)
+            }
+
             try FileManager.default.copyItem(at: oldPath, to: newPath)
             
             if let resourceValues = try? path.resourceValues(forKeys: [.typeIdentifierKey]),
@@ -35,7 +41,7 @@ class ViewController: UIViewController, UIDocumentPickerDelegate {
             post.setValue(path.lastPathComponent, forKeyPath: "name")
             
             try managedContext.save()
-            collectionView.posts.append(post)
+            collectionManager?.posts.append(post)
             
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
@@ -48,8 +54,7 @@ class ViewController: UIViewController, UIDocumentPickerDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        collectionView.actualInit(tag: nil)
-        collectionView.viewController = self
+        collectionManager = PostsManager(collectionView: collectionView, tag: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -77,7 +82,7 @@ class ViewController: UIViewController, UIDocumentPickerDelegate {
             let newViewController = segue.destination as! PostViewController
             let index = self.collectionView.indexPathsForSelectedItems?.first
             
-            newViewController.post = self.collectionView.posts[index!.row]
+            newViewController.post = self.collectionManager?.posts[index!.row]
             newViewController.image = (self.collectionView.cellForItem(at: index!) as! PostViewCell).imageView.image;
         }
     }
