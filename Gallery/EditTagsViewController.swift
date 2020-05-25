@@ -64,7 +64,7 @@ class EditTagsViewController: UIViewController, UITableViewDelegate, UITableView
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showTag" {
-            let newViewController = segue.destination as! TagViewController
+            let newViewController = segue.destination as! TagPreviewViewController
             let index = self.tableView.indexPathForSelectedRow
             
             newViewController.tag = (post?.tags![index!.row] as! Tag).name

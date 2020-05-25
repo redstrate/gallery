@@ -3,7 +3,7 @@ import CoreData
 import AVFoundation
 import AVKit
 
-class PostViewController: UIViewController, UIPopoverPresentationControllerDelegate {
+class PostDetailViewController: UIViewController, UIPopoverPresentationControllerDelegate {
     @IBOutlet weak var imageView: UIImageView?
     @IBOutlet weak var shareButton: UIBarButtonItem?
 
@@ -97,7 +97,7 @@ class PostViewController: UIViewController, UIPopoverPresentationControllerDeleg
             
             segue.destination.popoverPresentationController?.delegate = self
         } else if segue.identifier == "showInfo" {
-            guard let newViewController = segue.destination as? InfoViewController else {
+            guard let newViewController = segue.destination as? PostInfoViewController else {
                 return
             }
             
@@ -126,10 +126,10 @@ class PostViewController: UIViewController, UIPopoverPresentationControllerDeleg
     }
 }
 
-extension PostViewController {
-    static func loadFromStoryboard() -> PostViewController? {
+extension PostDetailViewController {
+    static func loadFromStoryboard() -> PostDetailViewController? {
         let storyboard = UIStoryboard(name: "Main", bundle: .main)
-        return storyboard.instantiateViewController(withIdentifier: "PostViewController") as? PostViewController
+        return storyboard.instantiateViewController(withIdentifier: "PostViewController") as? PostDetailViewController
     }
 }
 
@@ -140,7 +140,7 @@ private let EditButtonToolbarIdentifier = NSToolbarItem.Identifier(rawValue: "Ou
 private let ShareButtonToolbarIdentifier = NSToolbarItem.Identifier(rawValue: "OurButton2")
 private let InfoButtonToolbarIdentifier = NSToolbarItem.Identifier(rawValue: "OurButton3")
 
-extension PostViewController: NSToolbarDelegate {
+extension PostDetailViewController: NSToolbarDelegate {
     @objc func editTagsAction() {
         if(navigationController?.topViewController != self) {
             navigationController?.popViewController(animated: true)

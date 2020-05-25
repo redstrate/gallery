@@ -1,7 +1,7 @@
 import UIKit
 import CoreData
 
-class TagViewController: UIViewController {
+class TagPreviewViewController: UIViewController {
     var tag: String?
     
     var collectionManager: PostsManager?
@@ -22,7 +22,7 @@ class TagViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showPost" {
-            let newViewController = segue.destination as! PostViewController
+            let newViewController = segue.destination as! PostDetailViewController
             let index = self.collectionView.indexPathsForSelectedItems?.first
             
             newViewController.post = self.collectionManager?.posts[index!.row]

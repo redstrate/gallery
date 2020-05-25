@@ -16,7 +16,7 @@ class SearchViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showPost" {
-            let newViewController = segue.destination as! PostViewController
+            let newViewController = segue.destination as! PostDetailViewController
             let index = self.collectionView.indexPathsForSelectedItems?.first
             
             newViewController.post = self.postManager?.posts[index!.row]

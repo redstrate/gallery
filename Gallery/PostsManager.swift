@@ -218,7 +218,7 @@ class PostsManager: NSObject, UICollectionViewDataSource, UICollectionViewDelega
 
             let cell = self.collectionView?.cellForItem(at: IndexPath(row: index!, section: 0)) as! PostViewCell
             
-            let viewController = InfoViewController.loadFromStoryboard()
+            let viewController = PostInfoViewController.loadFromStoryboard()
             viewController!.post = post as? Post
             viewController!.image = cell.imageView.image
             

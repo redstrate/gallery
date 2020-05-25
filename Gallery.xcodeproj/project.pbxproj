@@ -8,30 +8,30 @@
 
 /* Begin PBXBuildFile section */
 		03093523235660E100E44910 /* ReverseImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03093522235660E100E44910 /* ReverseImageViewController.swift */; };
-		030935252356833A00E44910 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030935242356833A00E44910 /* InfoViewController.swift */; };
+		030935252356833A00E44910 /* PostInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030935242356833A00E44910 /* PostInfoViewController.swift */; };
 		0361A4F8234690C000639E67 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0361A4F7234690C000639E67 /* AppDelegate.swift */; };
 		0361A4FA234690C000639E67 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0361A4F9234690C000639E67 /* SceneDelegate.swift */; };
-		0361A4FC234690C000639E67 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0361A4FB234690C000639E67 /* ViewController.swift */; };
+		0361A4FC234690C000639E67 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0361A4FB234690C000639E67 /* HomeViewController.swift */; };
 		0361A4FF234690C000639E67 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0361A4FD234690C000639E67 /* Main.storyboard */; };
 		0361A502234690C000639E67 /* Gallery.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0361A500234690C000639E67 /* Gallery.xcdatamodeld */; };
 		0361A504234690C100639E67 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0361A503234690C100639E67 /* Assets.xcassets */; };
 		0361A507234690C100639E67 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0361A505234690C100639E67 /* LaunchScreen.storyboard */; };
 		0361A5102346919A00639E67 /* PostViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0361A50F2346919A00639E67 /* PostViewCell.swift */; };
-		0361A5122346A38100639E67 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0361A5112346A38100639E67 /* PostViewController.swift */; };
+		0361A5122346A38100639E67 /* PostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0361A5112346A38100639E67 /* PostDetailViewController.swift */; };
 		0361A514234828D000639E67 /* EditTagsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0361A513234828D000639E67 /* EditTagsViewController.swift */; };
 		0361A51623482A7D00639E67 /* TagViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0361A51523482A7D00639E67 /* TagViewCell.swift */; };
 		03F92BA22349635C0000DC1C /* PostsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F92BA12349635C0000DC1C /* PostsManager.swift */; };
 		03F92BA4234967E00000DC1C /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F92BA3234967E00000DC1C /* SearchViewController.swift */; };
-		03F92BA6234969800000DC1C /* TagViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F92BA5234969800000DC1C /* TagViewController.swift */; };
+		03F92BA6234969800000DC1C /* TagPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03F92BA5234969800000DC1C /* TagPreviewViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		03093522235660E100E44910 /* ReverseImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReverseImageViewController.swift; sourceTree = "<group>"; };
-		030935242356833A00E44910 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
+		030935242356833A00E44910 /* PostInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostInfoViewController.swift; sourceTree = "<group>"; };
 		0361A4F4234690C000639E67 /* Gallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gallery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0361A4F7234690C000639E67 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0361A4F9234690C000639E67 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		0361A4FB234690C000639E67 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		0361A4FB234690C000639E67 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		0361A4FE234690C000639E67 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0361A501234690C000639E67 /* Gallery.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Gallery.xcdatamodel; sourceTree = "<group>"; };
 		0361A503234690C100639E67 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -39,12 +39,12 @@
 		0361A508234690C100639E67 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0361A50E234690F200639E67 /* Gallery.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Gallery.entitlements; sourceTree = "<group>"; };
 		0361A50F2346919A00639E67 /* PostViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewCell.swift; sourceTree = "<group>"; };
-		0361A5112346A38100639E67 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
+		0361A5112346A38100639E67 /* PostDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailViewController.swift; sourceTree = "<group>"; };
 		0361A513234828D000639E67 /* EditTagsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTagsViewController.swift; sourceTree = "<group>"; };
 		0361A51523482A7D00639E67 /* TagViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagViewCell.swift; sourceTree = "<group>"; };
 		03F92BA12349635C0000DC1C /* PostsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsManager.swift; sourceTree = "<group>"; };
 		03F92BA3234967E00000DC1C /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
-		03F92BA5234969800000DC1C /* TagViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagViewController.swift; sourceTree = "<group>"; };
+		03F92BA5234969800000DC1C /* TagPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagPreviewViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,21 +80,21 @@
 				0361A50E234690F200639E67 /* Gallery.entitlements */,
 				0361A4F7234690C000639E67 /* AppDelegate.swift */,
 				0361A4F9234690C000639E67 /* SceneDelegate.swift */,
-				0361A4FB234690C000639E67 /* ViewController.swift */,
+				0361A4FB234690C000639E67 /* HomeViewController.swift */,
 				0361A4FD234690C000639E67 /* Main.storyboard */,
 				0361A503234690C100639E67 /* Assets.xcassets */,
 				0361A505234690C100639E67 /* LaunchScreen.storyboard */,
 				0361A508234690C100639E67 /* Info.plist */,
 				0361A500234690C000639E67 /* Gallery.xcdatamodeld */,
 				0361A50F2346919A00639E67 /* PostViewCell.swift */,
-				0361A5112346A38100639E67 /* PostViewController.swift */,
+				0361A5112346A38100639E67 /* PostDetailViewController.swift */,
 				0361A513234828D000639E67 /* EditTagsViewController.swift */,
 				0361A51523482A7D00639E67 /* TagViewCell.swift */,
 				03F92BA12349635C0000DC1C /* PostsManager.swift */,
 				03F92BA3234967E00000DC1C /* SearchViewController.swift */,
-				03F92BA5234969800000DC1C /* TagViewController.swift */,
+				03F92BA5234969800000DC1C /* TagPreviewViewController.swift */,
 				03093522235660E100E44910 /* ReverseImageViewController.swift */,
-				030935242356833A00E44910 /* InfoViewController.swift */,
+				030935242356833A00E44910 /* PostInfoViewController.swift */,
 			);
 			path = Gallery;
 			sourceTree = "<group>";
@@ -172,14 +172,14 @@
 			files = (
 				03F92BA4234967E00000DC1C /* SearchViewController.swift in Sources */,
 				03F92BA22349635C0000DC1C /* PostsManager.swift in Sources */,
-				0361A5122346A38100639E67 /* PostViewController.swift in Sources */,
+				0361A5122346A38100639E67 /* PostDetailViewController.swift in Sources */,
 				0361A502234690C000639E67 /* Gallery.xcdatamodeld in Sources */,
-				0361A4FC234690C000639E67 /* ViewController.swift in Sources */,
+				0361A4FC234690C000639E67 /* HomeViewController.swift in Sources */,
 				0361A51623482A7D00639E67 /* TagViewCell.swift in Sources */,
 				03093523235660E100E44910 /* ReverseImageViewController.swift in Sources */,
-				03F92BA6234969800000DC1C /* TagViewController.swift in Sources */,
+				03F92BA6234969800000DC1C /* TagPreviewViewController.swift in Sources */,
 				0361A4F8234690C000639E67 /* AppDelegate.swift in Sources */,
-				030935252356833A00E44910 /* InfoViewController.swift in Sources */,
+				030935252356833A00E44910 /* PostInfoViewController.swift in Sources */,
 				0361A514234828D000639E67 /* EditTagsViewController.swift in Sources */,
 				0361A4FA234690C000639E67 /* SceneDelegate.swift in Sources */,
 				0361A5102346919A00639E67 /* PostViewCell.swift in Sources */,

@@ -60,7 +60,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func configure(window: UIWindow?, with activity: NSUserActivity) -> Bool {
         if activity.activityType == "post" {
             if let post = getPostFromActivity(activity: activity) {
-                if let photoDetailViewController = PostViewController.loadFromStoryboard() {
+                if let photoDetailViewController = PostDetailViewController.loadFromStoryboard() {
                     photoDetailViewController.post = post
                     photoDetailViewController.isPopup = true
                     

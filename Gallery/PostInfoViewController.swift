@@ -2,7 +2,7 @@ import UIKit
 import CoreData
 import AVFoundation
 
-class InfoViewController: UIViewController {
+class PostInfoViewController: UIViewController {
     var post: Post?
     var image: UIImage?
     
@@ -56,9 +56,9 @@ class InfoViewController: UIViewController {
     }
 }
 
-extension InfoViewController {
-    static func loadFromStoryboard() -> InfoViewController? {
+extension PostInfoViewController {
+    static func loadFromStoryboard() -> PostInfoViewController? {
         let storyboard = UIStoryboard(name: "Main", bundle: .main)
-        return storyboard.instantiateViewController(withIdentifier: "InfoViewController") as? InfoViewController
+        return storyboard.instantiateViewController(withIdentifier: "InfoViewController") as? PostInfoViewController
     }
 }

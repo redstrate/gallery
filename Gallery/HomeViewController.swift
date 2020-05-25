@@ -1,7 +1,7 @@
 import UIKit
 import CoreData
 
-class ViewController: UIViewController, UIDocumentPickerDelegate {
+class HomeViewController: UIViewController, UIDocumentPickerDelegate {
     @IBOutlet weak var collectionView: UICollectionView!
     
     var collectionManager: PostsManager?
@@ -79,7 +79,7 @@ class ViewController: UIViewController, UIDocumentPickerDelegate {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showPost" {
-            let newViewController = segue.destination as! PostViewController
+            let newViewController = segue.destination as! PostDetailViewController
             let index = self.collectionView.indexPathsForSelectedItems?.first
             
             newViewController.post = self.collectionManager?.posts[index!.row]
@@ -119,7 +119,7 @@ private let OurButtonToolbarIdentifier = NSToolbarItem.Identifier(rawValue: "Our
 private let OurButtonToolbarIdentifier2 = NSToolbarItem.Identifier(rawValue: "OurButton2")
 private let TitlebarToolbarIdentifier = NSToolbarItem.Identifier(rawValue: "Titlebar")
 
-extension ViewController: NSToolbarDelegate {
+extension HomeViewController: NSToolbarDelegate {
     @objc func searchAction() {
         if(navigationController?.topViewController != self) {
             navigationController?.popViewController(animated: true)
